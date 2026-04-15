@@ -646,8 +646,15 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
 
-      /* hero */
-      .project-info { left: 20px; bottom: 48px; }
+      /* hero — full image, no crop */
+      #home { height: auto; overflow: visible; }
+      .slide { position: relative; inset: auto; opacity: 1; display: none; transition: none; }
+      .slide.active { display: block; }
+      .slide img { width: 100%; height: auto; object-fit: contain; object-position: center; }
+      .slide-overlay { display: none; }
+      .project-info { position: relative; bottom: auto; left: auto; padding: 16px 20px 4px; }
+      .project-info .project-firm { display: none; }
+      .dot-nav { position: relative; bottom: auto; left: auto; transform: none; justify-content: center; padding: 12px 0 16px; }
       .hero-bottom { display: none; }
       .arrow { display: none; }
       .scroll-cue { display: none; }
