@@ -6,7 +6,9 @@
       "Bash(sed -i 's/CAAD — Couvaras Architects/CAAD — Chris Austin Architecture + Design/g' *.html)",
       "Bash(sed -i 's/CAAD Couvaras Architects/CAAD Chris Austin Architecture + Design/g' *.html)",
       "Bash(sed -i 's/Couvaras Architects/Chris Austin Architecture + Design/g' *.html)",
-      "Bash(sed -i 's/COUVARAS ARCHITECTS/CHRIS AUSTIN ARCHITECTURE + DESIGN/g' *.html)"
+      "Bash(sed -i 's/COUVARAS ARCHITECTS/CHRIS AUSTIN ARCHITECTURE + DESIGN/g' *.html)",
+      "Bash(sed -i 's/The Beacons/Modern Australian Bush House/g' *.html)",
+      "Bash(sed -i 's/THE BEACONS/MODERN AUSTRALIAN BUSH HOUSE/g' *.html)"
     ]
   }
 }
