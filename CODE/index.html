@@ -15,28 +15,32 @@
       height: 100vh;
     }
 
-    /* HERO */
-    .hero {
+    /* SLIDES */
+    .slide {
       position: fixed;
       inset: 0;
       z-index: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
 
-    .hero img {
+    .slide.active { opacity: 1; }
+
+    .slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
     }
 
-    .hero-overlay {
+    .slide-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to bottom,
         rgba(0,0,0,0.25) 0%,
         rgba(0,0,0,0) 40%,
-        rgba(0,0,0,0.4) 100%
+        rgba(0,0,0,0.45) 100%
       );
     }
 
@@ -74,9 +78,7 @@
       list-style: none;
     }
 
-    .nav-links li {
-      position: relative;
-    }
+    .nav-links li { position: relative; }
 
     .nav-links a {
       color: #fff;
@@ -90,7 +92,6 @@
 
     .nav-links a:hover { opacity: 1; }
 
-    /* Dropdown */
     .dropdown-toggle {
       cursor: pointer;
       display: flex;
@@ -117,9 +118,7 @@
       list-style: none;
     }
 
-    .nav-links li:hover .dropdown-menu {
-      display: block;
-    }
+    .nav-links li:hover .dropdown-menu { display: block; }
 
     .dropdown-menu li a {
       display: block;
@@ -132,12 +131,13 @@
 
     .dropdown-menu li a:hover { opacity: 1; }
 
-    /* PROJECT INFO — bottom left */
+    /* PROJECT INFO */
     .project-info {
       position: fixed;
       bottom: 52px;
       left: 36px;
       z-index: 100;
+      transition: opacity 0.4s ease;
     }
 
     .project-info .project-name {
@@ -241,10 +241,30 @@
 </head>
 <body>
 
-  <!-- HERO -->
-  <div class="hero">
-    <img src="IMAGES/images/images/beacons/exterior-01.jpg" alt="Beacons — Couvaras Architects" />
-    <div class="hero-overlay"></div>
+  <!-- SLIDES -->
+  <div class="slide active">
+    <img src="IMAGES/images/images/dugs/interior-01.jpg" alt="Dugs" />
+    <div class="slide-overlay"></div>
+  </div>
+  <div class="slide">
+    <img src="IMAGES/images/images/beacons/exterior-01.jpg" alt="The Beacons" />
+    <div class="slide-overlay"></div>
+  </div>
+  <div class="slide">
+    <img src="IMAGES/images/images/Bryon Bay/Render 1.jpg" alt="Byron Bay" />
+    <div class="slide-overlay"></div>
+  </div>
+  <div class="slide">
+    <img src="IMAGES/images/images/Dural/1-6.jpg" alt="Dural" />
+    <div class="slide-overlay"></div>
+  </div>
+  <div class="slide">
+    <img src="IMAGES/images/images/Mortain Bay/2017946648_1_1_220720_044027-w2000-h1334.jpg" alt="Mortain Bay" />
+    <div class="slide-overlay"></div>
+  </div>
+  <div class="slide">
+    <img src="IMAGES/images/images/Loftus/Black roof FRONT.jpg" alt="Loftus" />
+    <div class="slide-overlay"></div>
   </div>
 
   <!-- NAV -->
@@ -253,7 +273,6 @@
       <span></span>
       <span></span>
     </div>
-
     <ul class="nav-links">
       <li><a href="work.html">Work</a></li>
       <li><a href="#">About</a></li>
@@ -271,16 +290,16 @@
   </nav>
 
   <!-- PROJECT INFO -->
-  <div class="project-info">
-    <div class="project-name">The Beacons</div>
-    <div class="project-meta">Sydney, NSW &nbsp;·&nbsp; Multi-Residential &nbsp;·&nbsp; 2025</div>
+  <div class="project-info" id="project-info">
+    <div class="project-name" id="proj-name"></div>
+    <div class="project-meta" id="proj-meta"></div>
     <div class="project-firm">Couvaras Architects</div>
-    <a href="work.html" class="view-project">View Project</a>
+    <a href="#" class="view-project" id="proj-link">View Project</a>
   </div>
 
   <!-- ARROWS -->
-  <button class="arrow arrow-left">&#8592;</button>
-  <button class="arrow arrow-right">&#8594;</button>
+  <button class="arrow arrow-left" onclick="prev()">&#8592;</button>
+  <button class="arrow arrow-right" onclick="next()">&#8594;</button>
 
   <!-- BOTTOM BAR -->
   <div class="bottom-bar">
@@ -290,11 +309,55 @@
   </div>
 
   <!-- DOT NAV -->
-  <div class="dot-nav">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
+  <div class="dot-nav" id="dots"></div>
+
+  <script>
+    const projects = [
+      { name: 'Dugs',         meta: 'Sydney, NSW · Residential · 2024', link: 'project-dugs.html' },
+      { name: 'The Beacons',  meta: 'Sydney, NSW · Residential · 2025', link: 'project-beacons.html' },
+      { name: 'Byron Bay',    meta: 'Byron Bay, NSW · Residential · 2025', link: 'project-byron-bay.html' },
+      { name: 'Dural',        meta: 'Dural, NSW · Residential · 2025', link: 'project-dural.html' },
+      { name: 'Mortain Bay',  meta: 'Sydney, NSW · Residential · 2022', link: 'project-mortain-bay.html' },
+      { name: 'Loftus',       meta: 'Loftus, NSW · Residential · 2026', link: 'project-loftus.html' },
+    ];
+
+    const slides = document.querySelectorAll('.slide');
+    const dotsEl = document.getElementById('dots');
+    let current = 0;
+
+    projects.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dotsEl.appendChild(d);
+    });
+
+    function updateInfo() {
+      const p = projects[current];
+      document.getElementById('proj-name').textContent = p.name;
+      document.getElementById('proj-meta').textContent = p.meta;
+      document.getElementById('proj-link').href = p.link;
+    }
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dotsEl.children[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dotsEl.children[current].classList.add('active');
+      updateInfo();
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft') prev();
+    });
+
+    updateInfo();
+  </script>
 
 </body>
 </html>
