@@ -60,6 +60,8 @@
       flex-direction: column;
       gap: 4px;
       cursor: pointer;
+      position: relative;
+      z-index: 200;
     }
 
     .nav-logo span {
@@ -67,7 +69,58 @@
       width: 22px;
       height: 2px;
       background: #fff;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
+
+    .nav-logo.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-logo.open span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* HAMBURGER MENU */
+    .hamburger-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 48px;
+    }
+
+    .hamburger-menu.open { display: flex; }
+
+    .hamburger-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      opacity: 0.85;
+      line-height: 1.4;
+      transition: opacity 0.2s;
+    }
+
+    .hamburger-menu a:hover { opacity: 1; }
+
+    .hamburger-menu .menu-sub {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hamburger-menu .menu-sub a {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 400;
+      opacity: 0.35;
+      line-height: 2;
+    }
+
+    .hamburger-menu .menu-sub a:hover { opacity: 0.7; }
 
     .nav-links {
       position: absolute;
@@ -267,9 +320,23 @@
     <div class="slide-overlay"></div>
   </div>
 
+  <!-- HAMBURGER MENU -->
+  <div class="hamburger-menu" id="hamburger-menu">
+    <a href="work.html">Work</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+    <div class="menu-sub">
+      <a href="#">Residential</a>
+      <a href="#">Commercial</a>
+      <a href="#">Interior Design</a>
+      <a href="#">Development</a>
+    </div>
+  </div>
+
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">
+    <div class="nav-logo" id="nav-logo" onclick="toggleMenu()">
       <span></span>
       <span></span>
     </div>
@@ -357,6 +424,13 @@
     });
 
     updateInfo();
+
+    function toggleMenu() {
+      const menu = document.getElementById('hamburger-menu');
+      const logo = document.getElementById('nav-logo');
+      menu.classList.toggle('open');
+      logo.classList.toggle('open');
+    }
   </script>
 
 </body>
