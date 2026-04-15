@@ -275,11 +275,11 @@
 <body>
 
   <!-- SLIDES -->
-  <div class="slide active">
+  <div class="slide">
     <img src="IMAGES/images/images/dugs/interior-01.jpg" alt="Dugs" />
     <div class="slide-overlay"></div>
   </div>
-  <div class="slide">
+  <div class="slide active">
     <img src="IMAGES/images/images/beacons/exterior-01.jpg" alt="Modern Australian Bush House" />
     <div class="slide-overlay"></div>
   </div>
@@ -352,7 +352,7 @@
 
     const slides = document.querySelectorAll('.slide');
     const dotsEl = document.getElementById('dots');
-    let current = 0;
+    let current = 1;
 
     projects.forEach((_, i) => {
       const d = document.createElement('div');
