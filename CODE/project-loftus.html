@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loftus — CAAD Couvaras Architects</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; color: #fff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow: hidden; height: 100vh; }
+    .slide { position: fixed; inset: 0; opacity: 0; transition: opacity 0.6s ease; }
+    .slide.active { opacity: 1; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 100%); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 36px; }
+    .back { color: #fff; text-decoration: none; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; transition: opacity 0.2s; display: flex; align-items: center; gap: 10px; }
+    .back:hover { opacity: 1; }
+    .back::before { content: '←'; font-size: 0.9rem; }
+    .nav-logo { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.5; text-decoration: none; color: #fff; }
+    .project-info { position: fixed; bottom: 52px; left: 36px; z-index: 100; }
+    .project-info .name { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; margin-bottom: 4px; }
+    .project-info .meta { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5; }
+    .counter { position: fixed; bottom: 52px; right: 36px; z-index: 100; font-size: 0.6rem; letter-spacing: 0.15em; opacity: 0.4; }
+    .arrow { position: fixed; top: 50%; transform: translateY(-50%); z-index: 100; background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; opacity: 0.35; transition: opacity 0.2s; padding: 20px; }
+    .arrow:hover { opacity: 0.9; }
+    .arrow-left { left: 8px; }
+    .arrow-right { right: 8px; }
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; padding: 14px 36px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .bottom-bar span { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.3; }
+    .dot-nav { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 101; display: flex; gap: 6px; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.2s; }
+    .dot.active { background: #fff; }
+  </style>
+</head>
+<body>
+  <div class="slide active"><img src="IMAGES/images/images/Loftus/Black roof FRONT.jpg" /><div class="slide-overlay"></div></div>
+  <div class="slide"><img src="IMAGES/images/images/Loftus/Black roof BACK.jpg" /><div class="slide-overlay"></div></div>
+  <div class="slide"><img src="IMAGES/images/images/Loftus/White roof FRONT (1).jpg" /><div class="slide-overlay"></div></div>
+  <div class="slide"><img src="IMAGES/images/images/Loftus/White roof BACK.jpg" /><div class="slide-overlay"></div></div>
+  <div class="slide"><img src="IMAGES/images/images/Loftus/Screenshot 2026-02-19 155012.jpg" /><div class="slide-overlay"></div></div>
+  <div class="slide"><img src="IMAGES/images/images/Loftus/Screenshot 2026-02-19 155428.jpg" /><div class="slide-overlay"></div></div>
+  <nav>
+    <a href="work.html" class="back">Work</a>
+    <a href="index.html" class="nav-logo">CAAD</a>
+  </nav>
+  <div class="project-info">
+    <div class="name">Loftus</div>
+    <div class="meta">Loftus, NSW &nbsp;·&nbsp; Residential &nbsp;·&nbsp; 2026</div>
+  </div>
+  <div class="counter"><span id="current">1</span> / 6</div>
+  <button class="arrow arrow-left" onclick="prev()">&#8592;</button>
+  <button class="arrow arrow-right" onclick="next()">&#8594;</button>
+  <div class="bottom-bar"><span>Couvaras Architects</span><span>&copy; 2026</span><span>Sydney, Australia</span></div>
+  <div class="dot-nav" id="dots"></div>
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsEl = document.getElementById('dots');
+    let current = 0;
+    slides.forEach((_, i) => { const d = document.createElement('div'); d.className = 'dot' + (i === 0 ? ' active' : ''); d.onclick = () => goTo(i); dotsEl.appendChild(d); });
+    function goTo(n) { slides[current].classList.remove('active'); dotsEl.children[current].classList.remove('active'); current = (n + slides.length) % slides.length; slides[current].classList.add('active'); dotsEl.children[current].classList.add('active'); document.getElementById('current').textContent = current + 1; }
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+    document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
+  </script>
+</body>
+</html>
