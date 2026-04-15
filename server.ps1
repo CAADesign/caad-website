@@ -21,16 +21,19 @@ while ($listener.IsListening) {
             '.jpg'  { 'image/jpeg' }
             '.jpeg' { 'image/jpeg' }
             '.svg'  { 'image/svg+xml' }
+            '.ico'  { 'image/x-icon' }
             default { 'application/octet-stream' }
         }
-        $bytes = [System.IO.File]::ReadAllBytes($file)
         $ctx.Response.ContentType = $mime
-        $ctx.Response.ContentLength64 = [long]$bytes.Length
-        $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
+        $ctx.Response.StatusCode = 200
+        $fileStream = [System.IO.File]::OpenRead($file)
+        $ctx.Response.ContentLength64 = $fileStream.Length
+        $fileStream.CopyTo($ctx.Response.OutputStream)
+        $fileStream.Close()
     } else {
+        $msg = [System.Text.Encoding]::UTF8.GetBytes('404 Not Found')
         $ctx.Response.StatusCode = 404
-        $msg = [System.Text.Encoding]::UTF8.GetBytes('Not found')
-        $ctx.Response.ContentLength64 = [long]$msg.Length
+        $ctx.Response.ContentLength64 = $msg.Length
         $ctx.Response.OutputStream.Write($msg, 0, $msg.Length)
     }
     $ctx.Response.OutputStream.Close()
