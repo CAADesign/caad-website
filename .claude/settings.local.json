@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(sed -i 's/Couvaras Architects \\\\&amp; Design/Chris Austin Architecture + Design/g' *.html)",
+      "Bash(sed -i 's/CAAD — Couvaras Architects/CAAD — Chris Austin Architecture + Design/g' *.html)",
+      "Bash(sed -i 's/CAAD Couvaras Architects/CAAD Chris Austin Architecture + Design/g' *.html)",
+      "Bash(sed -i 's/Couvaras Architects/Chris Austin Architecture + Design/g' *.html)",
+      "Bash(sed -i 's/COUVARAS ARCHITECTS/CHRIS AUSTIN ARCHITECTURE + DESIGN/g' *.html)"
     ]
   }
 }
