@@ -3,250 +3,298 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CAAD Architects</title>
+  <title>CAAD — Couvaras Architects</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: #0a0a0a;
-      color: #f0f0f0;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* HERO */
+    .hero {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.25) 0%,
+        rgba(0,0,0,0) 40%,
+        rgba(0,0,0,0.4) 100%
+      );
     }
 
     /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 48px;
-      z-index: 100;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(8px);
+      padding: 28px 36px;
     }
 
-    nav .logo {
-      font-size: 1.2rem;
-      font-weight: 700;
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-logo span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .nav-links {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.7rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 36px;
-    }
-
-    nav ul a {
-      color: #f0f0f0;
-      text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.7;
+      opacity: 0.85;
       transition: opacity 0.2s;
     }
 
-    nav ul a:hover { opacity: 1; }
+    .nav-links a:hover { opacity: 1; }
 
-    /* HERO */
-    .hero {
-      height: 100vh;
+    /* Dropdown */
+    .dropdown-toggle {
+      cursor: pointer;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 80px 48px;
-      border-bottom: 1px solid #222;
+      align-items: center;
+      gap: 6px;
     }
 
-    .hero h1 {
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      max-width: 800px;
-      color: yellow;
+    .dropdown-toggle::after {
+      content: '▾';
+      font-size: 0.6rem;
+      opacity: 0.7;
     }
 
-    .hero p {
-      margin-top: 24px;
-      font-size: 1rem;
-      opacity: 0.5;
-      letter-spacing: 0.05em;
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      padding: 12px 0;
+      min-width: 160px;
+      list-style: none;
     }
 
-    /* PROJECTS */
-    .projects {
-      padding: 100px 48px;
+    .nav-links li:hover .dropdown-menu {
+      display: block;
     }
 
-    .section-label {
-      font-size: 0.75rem;
+    .dropdown-menu li a {
+      display: block;
+      padding: 8px 20px;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu li a:hover { opacity: 1; }
+
+    /* PROJECT INFO — bottom left */
+    .project-info {
+      position: fixed;
+      bottom: 52px;
+      left: 36px;
+      z-index: 100;
+    }
+
+    .project-info .project-name {
+      font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.4;
-      margin-bottom: 48px;
+      font-weight: 500;
+      margin-bottom: 4px;
     }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2px;
+    .project-info .project-meta {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 2px;
     }
 
-    .project-card {
-      background: #111;
-      aspect-ratio: 4/3;
+    .project-info .project-firm {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 16px;
+    }
+
+    .view-project {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .view-project:hover { border-color: #fff; }
+
+    /* BOTTOM BAR */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
       display: flex;
-      align-items: flex-end;
-      padding: 24px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 36px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .bottom-bar span {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.45;
+    }
+
+    /* DOT NAV */
+    .dot-nav {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 101;
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
       cursor: pointer;
       transition: background 0.2s;
     }
 
-    .project-card:hover { background: #161616; }
+    .dot.active { background: #fff; }
 
-    .project-card h3 {
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-    }
-
-    .project-card span {
-      display: block;
-      font-size: 0.75rem;
+    /* ARROWS */
+    .arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
       opacity: 0.4;
-      margin-top: 4px;
+      transition: opacity 0.2s;
+      padding: 12px;
     }
 
-    /* ABOUT */
-    .about {
-      padding: 100px 48px;
-      border-top: 1px solid #222;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .about h2 {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 300;
-      line-height: 1.15;
-    }
-
-    .about p {
-      font-size: 1rem;
-      line-height: 1.8;
-      opacity: 0.6;
-    }
-
-    /* CONTACT */
-    .contact {
-      padding: 100px 48px;
-      border-top: 1px solid #222;
-    }
-
-    .contact h2 {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 300;
-      margin-bottom: 48px;
-    }
-
-    .contact a {
-      display: inline-block;
-      color: #f0f0f0;
-      text-decoration: none;
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid #444;
-      padding-bottom: 4px;
-      transition: border-color 0.2s;
-    }
-
-    .contact a:hover { border-color: #f0f0f0; }
-
-    /* FOOTER */
-    footer {
-      padding: 32px 48px;
-      border-top: 1px solid #222;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      opacity: 0.3;
-      letter-spacing: 0.05em;
-    }
-
-    @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      nav ul { gap: 20px; }
-      .hero { padding: 80px 24px; }
-      .projects, .contact { padding: 60px 24px; }
-      .about { padding: 60px 24px; grid-template-columns: 1fr; gap: 40px; }
-      footer { padding: 24px; flex-direction: column; gap: 8px; }
-    }
+    .arrow:hover { opacity: 0.9; }
+    .arrow-left { left: 12px; }
+    .arrow-right { right: 12px; }
   </style>
 </head>
 <body>
 
+  <!-- HERO -->
+  <div class="hero">
+    <img src="IMAGES/images/images/beacons/exterior-01.jpg" alt="Beacons — Couvaras Architects" />
+    <div class="hero-overlay"></div>
+  </div>
+
+  <!-- NAV -->
   <nav>
-    <div class="logo">CAAD</div>
-    <ul>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <div class="nav-logo">
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#">Work</a></li>
+      <li><a href="#">About</a></li>
+      <li>
+        <a class="dropdown-toggle">Services</a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Residential</a></li>
+          <li><a href="#">Commercial</a></li>
+          <li><a href="#">Interior Design</a></li>
+          <li><a href="#">Development</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
     </ul>
   </nav>
 
-  <section class="hero">
-    <h1>Architecture<br>& Design</h1>
-    <p>Couvaras Architects — Building with intention.</p>
-  </section>
+  <!-- PROJECT INFO -->
+  <div class="project-info">
+    <div class="project-name">The Beacons</div>
+    <div class="project-meta">Sydney, NSW &nbsp;·&nbsp; Multi-Residential &nbsp;·&nbsp; 2025</div>
+    <div class="project-firm">Couvaras Architects</div>
+    <a href="#" class="view-project">View Project</a>
+  </div>
 
-  <section class="projects" id="projects">
-    <p class="section-label">Selected Work</p>
-    <div class="project-grid">
-      <div class="project-card">
-        <div>
-          <h3>Project One</h3>
-          <span>Residential — 2024</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <div>
-          <h3>Project Two</h3>
-          <span>Commercial — 2024</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <div>
-          <h3>Project Three</h3>
-          <span>Interior — 2023</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ARROWS -->
+  <button class="arrow arrow-left">&#8592;</button>
+  <button class="arrow arrow-right">&#8594;</button>
 
-  <section class="about" id="about">
-    <h2>We design spaces that endure.</h2>
-    <p>
-      CAAD is a studio focused on thoughtful, precise architecture.
-      From residential homes to commercial spaces, we bring clarity
-      and purpose to every project we take on.
-    </p>
-  </section>
-
-  <section class="contact" id="contact">
-    <h2>Get in touch.</h2>
-    <a href="mailto:hello@caad.com.au">hello@caad.com.au</a>
-  </section>
-
-  <footer>
-    <span>CAAD — Couvaras Architects</span>
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <span>Couvaras Architects &amp; Design</span>
     <span>&copy; 2026</span>
-  </footer>
+    <span>Sydney, Australia</span>
+  </div>
+
+  <!-- DOT NAV -->
+  <div class="dot-nav">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
 
 </body>
 </html>
