@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAAD Architects</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    nav .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 36px;
+    }
+
+    nav ul a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    nav ul a:hover { opacity: 1; }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 80px 48px;
+      border-bottom: 1px solid #222;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      max-width: 800px;
+    }
+
+    .hero p {
+      margin-top: 24px;
+      font-size: 1rem;
+      opacity: 0.5;
+      letter-spacing: 0.05em;
+    }
+
+    /* PROJECTS */
+    .projects {
+      padding: 100px 48px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 48px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2px;
+    }
+
+    .project-card {
+      background: #111;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .project-card:hover { background: #161616; }
+
+    .project-card h3 {
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .project-card span {
+      display: block;
+      font-size: 0.75rem;
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 100px 48px;
+      border-top: 1px solid #222;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+    }
+
+    .about p {
+      font-size: 1rem;
+      line-height: 1.8;
+      opacity: 0.6;
+    }
+
+    /* CONTACT */
+    .contact {
+      padding: 100px 48px;
+      border-top: 1px solid #222;
+    }
+
+    .contact h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 48px;
+    }
+
+    .contact a {
+      display: inline-block;
+      color: #f0f0f0;
+      text-decoration: none;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #444;
+      padding-bottom: 4px;
+      transition: border-color 0.2s;
+    }
+
+    .contact a:hover { border-color: #f0f0f0; }
+
+    /* FOOTER */
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      opacity: 0.3;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      nav ul { gap: 20px; }
+      .hero { padding: 80px 24px; }
+      .projects, .contact { padding: 60px 24px; }
+      .about { padding: 60px 24px; grid-template-columns: 1fr; gap: 40px; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">CAAD</div>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Architecture<br>& Design</h1>
+    <p>Couvaras Architects — Building with intention.</p>
+  </section>
+
+  <section class="projects" id="projects">
+    <p class="section-label">Selected Work</p>
+    <div class="project-grid">
+      <div class="project-card">
+        <div>
+          <h3>Project One</h3>
+          <span>Residential — 2024</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div>
+          <h3>Project Two</h3>
+          <span>Commercial — 2024</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div>
+          <h3>Project Three</h3>
+          <span>Interior — 2023</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>We design spaces that endure.</h2>
+    <p>
+      CAAD is a studio focused on thoughtful, precise architecture.
+      From residential homes to commercial spaces, we bring clarity
+      and purpose to every project we take on.
+    </p>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Get in touch.</h2>
+    <a href="mailto:hello@caad.com.au">hello@caad.com.au</a>
+  </section>
+
+  <footer>
+    <span>CAAD — Couvaras Architects</span>
+    <span>&copy; 2026</span>
+  </footer>
+
+</body>
+</html>
