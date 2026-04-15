@@ -23,6 +23,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 28px 36px;
+      cursor: pointer;
     }
 
     .nav-logo {
@@ -356,5 +357,10 @@
     <span>Sydney, Australia</span>
   </footer>
 
+  <script>
+    document.querySelector('nav').addEventListener('click', function(e) {
+      if (!e.target.closest('a')) window.location.href = 'index.html';
+    });
+  </script>
 </body>
 </html>
