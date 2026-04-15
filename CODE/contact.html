@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Chris Austin Architecture + Design</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 36px;
+      cursor: pointer;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+    }
+
+    .nav-links {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links li { position: relative; }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { opacity: 1; }
+
+    /* PAGE */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 100px;
+    }
+
+    /* LEFT */
+    .left {
+      padding: 80px 48px 80px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .left h1 {
+      font-size: clamp(4rem, 8vw, 7rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+    }
+
+    .left .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .contact-detail .detail-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      margin-bottom: 6px;
+    }
+
+    .contact-detail .detail-value {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      line-height: 1.6;
+    }
+
+    .contact-detail .detail-value a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-detail .detail-value a:hover {
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .left .label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.3;
+    }
+
+    /* RIGHT — form */
+    .right {
+      padding: 80px 36px 80px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .form-intro {
+      margin-bottom: 48px;
+    }
+
+    .form-intro p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      opacity: 0.6;
+      font-weight: 300;
+      max-width: 460px;
+    }
+
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+      margin-bottom: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .field {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .field:first-child {
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding-right: 24px;
+    }
+
+    .field:last-child.field-right {
+      padding-left: 24px;
+    }
+
+    .field:focus-within {
+      border-bottom-color: rgba(255,255,255,0.4);
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background: none;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      width: 100%;
+      opacity: 0.85;
+    }
+
+    .field select option {
+      background: #0a0a0a;
+      color: #fff;
+    }
+
+    .field textarea {
+      resize: none;
+      height: 120px;
+      line-height: 1.7;
+    }
+
+    .field-full {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+    }
+
+    .field-full:focus-within {
+      border-bottom-color: rgba(255,255,255,0.4);
+    }
+
+    .field-full label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      margin-bottom: 8px;
+    }
+
+    .field-full input,
+    .field-full textarea {
+      background: none;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      width: 100%;
+      opacity: 0.85;
+    }
+
+    .field-full textarea {
+      resize: none;
+      height: 140px;
+      line-height: 1.7;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+    }
+
+    .form-note {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.2;
+    }
+
+    .submit-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0;
+    }
+
+    .submit-btn:hover { opacity: 1; }
+
+    .submit-btn::after {
+      content: '→';
+      font-size: 1rem;
+    }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      padding-top: 32px;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 20px 36px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.25;
+    }
+
+    @media (max-width: 768px) {
+      .page { grid-template-columns: 1fr; }
+      .left { position: relative; height: auto; padding: 60px 24px 40px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .right { padding: 40px 24px 60px; }
+      .form-row { grid-template-columns: 1fr; }
+      .field:first-child { border-right: none; padding-right: 0; }
+      .field:last-child.field-right { padding-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span></span>
+      <span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <!-- LEFT -->
+    <div class="left">
+      <h1>Get<br>In<br>Touch</h1>
+
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-label">Email</div>
+          <div class="detail-value"><a href="mailto:Chris@caad.com.au">Chris@caad.com.au</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-label">Location</div>
+          <div class="detail-value">Sydney, NSW<br>Australia</div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-label">Nominated Architect</div>
+          <div class="detail-value">Chris Austin<br>NSW 12780</div>
+        </div>
+      </div>
+
+      <div class="label">Chris Austin Architecture + Design</div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+
+      <div class="form-intro">
+        <div class="divider"></div>
+        <p>Tell us about your project. We'll be in touch to discuss how we can bring your vision to life.</p>
+      </div>
+
+      <form id="contact-form" onsubmit="handleSubmit(event)">
+
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="field field-right">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="Optional" />
+          </div>
+          <div class="field field-right">
+            <label for="type">Project Type</label>
+            <select id="type" name="type">
+              <option value="" disabled selected>Select type</option>
+              <option value="residential-new">Residential — New Build</option>
+              <option value="residential-reno">Residential — Renovation</option>
+              <option value="commercial">Commercial</option>
+              <option value="interior">Interior Design</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us about your project, location, timeline, and any other details." required></textarea>
+        </div>
+
+        <div class="form-footer">
+          <span class="form-note">All enquiries responded to within 48 hours</span>
+          <button type="submit" class="submit-btn">Send Enquiry</button>
+        </div>
+
+      </form>
+
+      <div class="success-msg" id="success-msg">
+        Thank you — we'll be in touch shortly.
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>Chris Austin Architecture + Design</span>
+    <span>Nominated Architect Chris Austin NSW 12780</span>
+    <span>&copy; 2026</span>
+  </footer>
+
+  <script>
+    document.querySelector('nav').addEventListener('click', function(e) {
+      if (!e.target.closest('a')) window.location.href = 'index.html';
+    });
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
