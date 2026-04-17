@@ -379,6 +379,8 @@
       </div>
 
       <form id="contact-form" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="access_key" value="b27ac8d8-dd18-4a73-a6f6-24c24bef6b09" />
+        <input type="hidden" name="subject" value="New Enquiry — CAAD Website" />
 
         <div class="form-row">
           <div class="field">
@@ -451,10 +453,19 @@
       if (!e.target.closest('a')) window.location.href = 'index.html';
     });
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      document.getElementById('contact-form').style.display = 'none';
-      document.getElementById('success-msg').style.display = 'block';
+      const form = document.getElementById('contact-form');
+      const data = new FormData(form);
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('success-msg').style.display = 'block';
+        }
+      } catch(err) {
+        alert('Something went wrong. Please email Chris@caad.com.au directly.');
+      }
     }
   </script>
 
