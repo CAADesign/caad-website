@@ -36,6 +36,19 @@
     .dot-nav { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 101; display: flex; gap: 6px; }
     .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.2s; }
     .dot.active { background: #fff; }
+    @media (max-width: 768px) {
+      body { overflow: auto; height: auto; }
+      .slide { position: relative; inset: auto; opacity: 1; display: none; transition: none; }
+      .slide.active { display: block; }
+      .slide img { width: 100%; height: auto; object-fit: contain; }
+      .slide-overlay { display: none; }
+      nav { position: relative; padding: 20px; }
+      .project-info { position: relative; bottom: auto; left: auto; padding: 16px 20px 4px; }
+      .counter { position: relative; bottom: auto; right: auto; padding: 0 20px 8px; text-align: right; }
+      .dot-nav { position: relative; bottom: auto; left: auto; transform: none; justify-content: center; padding: 12px 0; }
+      .arrow { display: none; }
+      .bottom-bar { position: relative; padding: 14px 20px; }
+    }
   </style>
 </head>
 <body>
